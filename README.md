@@ -1,5 +1,45 @@
 # Getting Started
 
+
+## Connecting to the cluster
+
+### Standard SSH Connection
+To initiate a connection with the cluster, execute the following SSH command, substituting `<username>` with your specific username:
+
+```bash
+ssh <username>@conduit.cs.uni-saarland.de
+```
+
+Upon execution, enter your assigned password when prompted to complete the login process.
+
+### Utilizing SSH Keys for easier access
+
+#### Step 1: Generating an SSH Key
+To avoid entering your password on each login, consider setting up SSH keys. Start by generating a new SSH key:
+
+```bash
+ssh-keygen -t rsa -b 4096 -f .ssh/sic_cluster
+```
+
+#### Step 2: Transferring the Public Key to the Cluster
+Next, transfer the newly created public key to the cluster to enable key-based authentication:
+
+```bash
+ssh-copy-id -i ~/.ssh/sic_cluster.pub <username>@conduit.cs.uni-saarland.de
+```
+
+Post completion, you should be able to log in using `ssh <username>@conduit.cs.uni-saarland.de` without entering the password each time.
+
+#### Simplifying the SSH Command
+To further simplify the SSH connection process, you can add an entry to your `~/.ssh/config` file:
+
+```bash
+Host sic_cluster
+    HostName conduit.cs.uni-saarland.de
+    User <username>
+```
+Replace `<username>` with your specific username (`neuronet_teamxyz`). With this configuration, you can connect to the cluster by simply executing `ssh sic_cluster`.
+
 ## Installation of Miniconda
 
 ### Step 1: Install Miniconda

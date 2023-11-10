@@ -32,3 +32,19 @@ condor_submit run.sub
 ```
 
 This process triggers `conda_run.sh`, which in turn selects the Conda environment as specified in the `environment.yml` file, and subsequently executes the script defined in `run.sh`. To modify the Python script being executed, simply edit the last line in the `run.sh` file.
+
+## Monitoring Job Execution and Logs
+
+### Accessing Job Logs
+Upon the successful execution of a job, its log files are stored within the `logs/` directory. To review the output of a specific job, utilize the following command, replacing `<job_id>` with the actual ID of the job:
+
+```bash
+less logs/run.<job_id>.0.out
+```
+
+### Real-time Monitoring of Ongoing Processes
+For real-time monitoring of a process that is currently in execution, the following command can be used, again substituting `<job_id>` with the correct job ID:
+
+```bash
+tail -f logs/run.<job_id>.0.out
+```

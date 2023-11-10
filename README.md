@@ -15,8 +15,7 @@ Upon execution, enter your assigned password when prompted to complete the login
 ### Utilizing SSH Keys for easier access
 
 #### Step 1: Generating an SSH Key
-To avoid entering your password on each login, consider setting up SSH keys. Start by generating a new SSH key:
-
+To avoid entering your password on each login, consider setting up SSH keys. Start by generating a new SSH key. Note these commands should be run on your local machine not the cluster.
 ```bash
 ssh-keygen -t rsa -b 4096 -f .ssh/sic_cluster
 ```

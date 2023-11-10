@@ -1,5 +1,6 @@
 universe		= docker
 docker_image		= pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
+initialdir              = $ENV(HOME)
 executable              = torch_matmul_docker.py
 output                  = logs/torch_matmul.$(ClusterId).$(ProcId).out
 error                   = logs/torch_matmul.$(ClusterId).$(ProcId).err

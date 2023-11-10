@@ -1,13 +1,34 @@
-# Getting started
+# Getting Started
 
-## Install miniconda
-First we need to install miniconda, to do so run 
-```
+## Installation of Miniconda
+
+### Step 1: Install Miniconda
+To initiate the setup, begin by installing Miniconda. Execute the following command:
+
+```bash
 condor_submit setup.sub
 ```
-This will install miniconda in `~/miniconda3` with all packages that are included in `environment.yml`. To add other packages simply modify the environment file and submit the setup job again.
-To add `conda` to the path add `export PATH=$HOME/miniconda3/bin:$PATH` to your `~/.bashrc` file and run `source ~/.bashrc`.
 
-Once you have setup conda you can submit the `torch_matmul_docker.py` script to the cluster by running `condor_submit run.sub`. This will first execute `conda_run.sh`, selecting the correct
-environment and then running the script using `run.sh`.
-If you want to change the script that is run edit `run.sh`.
+This command installs Miniconda in the directory `~/miniconda3` and includes all the packages listed in `environment.yml`. Should you require additional packages, you can easily incorporate them by adding them to the `environment.yml` file and re-executing the setup job.
+
+### Step 2: Configuring the System Path
+To integrate `conda` into your system path, append the following line to your `~/.bashrc` file:
+
+```bash
+export PATH=$HOME/miniconda3/bin:$PATH
+```
+
+Afterwards, activate the changes by sourcing the `~/.bashrc` file:
+
+```bash
+source ~/.bashrc
+```
+
+### Step 3: Submitting Scripts to the Cluster
+With Miniconda configured, you can now submit scripts to the cluster. For instance, to submit the `torch_matmul_docker.py` script, use the following command:
+
+```bash
+condor_submit run.sub
+```
+
+This process triggers `conda_run.sh`, which in turn selects the Conda environment as specified in the `environment.yml` file, and subsequently executes the script defined in `run.sh`. To modify the Python script being executed, simply edit the last line in the `run.sh` file.

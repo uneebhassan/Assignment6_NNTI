@@ -1,3 +1,5 @@
+[[_TOC_]]
+
 # Getting Started
 
 More information on using the cluster can be found at [the SIC wiki](https://wiki.cs.uni-saarland.de/en/HPC/faq) and [in this tutorial](https://kingsx.cs.uni-saarland.de/index.php/s/ssmj33dxmgGsAYd).

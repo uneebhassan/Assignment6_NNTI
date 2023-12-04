@@ -4,6 +4,8 @@ More information on using the cluster can be found at [the SIC wiki](https://wik
 
 ## Connecting to the cluster
 
+To connect to the cluster you need to be in the university's network. If you are at home you can use the [VPN](https://www.hiz-saarland.de/dienste/vpn/).
+
 ### Standard SSH Connection
 To initiate a connection with the cluster, execute the following SSH command, substituting `<username>` with your specific username:
 
@@ -40,6 +42,30 @@ Host sic_cluster
 ```
 Replace `<username>` with your specific username (`neuronet_teamxyz`). With this configuration, you can connect to the cluster by simply executing `ssh sic_cluster`.
 
+## Setting up on the cluster
+Once you are able to connect to the cluster, you can get started by cloning or even better forking this repository.
+```
+git clone https://gitlab.cs.uni-saarland.de/mara00002/torch-condor-template
+# or git clone your fork
+```
+To makes changes you can either develop on the cluster directly using e.g. VSCode with the  [Remote-SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension or a terminal editor, or setup your own repository and push changes from your machine. The second strategy is a little more involved, but allows you to develop using your favorite programs on your local machine.
+
+### Developing using git
+
+
+1. **Set up your own remote**. You can use your [SIC account](https://sam.sic.saarland/) on the SIC's GitLab instance to create a [new repository](https://gitlab.cs.uni-saarland.de/projects/new#blank_project). Any other hosted git instance of course works as well. 
+2. **Change the remote to your repo**. To change the remote run `git remote set-url origin https://url-to-your-repo.git`. 
+3. **Push and Pull**.
+```bash
+# On the remote/cluster
+git push
+``` 
+```bash
+# On your machine 
+git clone https://url-to-your-repo.git
+```
+Now you can make changes on your machine and simply push to the repo and pull the changes on the cluster.
+
 ## Installation of Miniconda
 
 ### Step 1: Install Miniconda
@@ -49,9 +75,11 @@ To initiate the setup, begin by installing Miniconda. Execute the following comm
 condor_submit setup.sub
 ```
 
-This command installs Miniconda in the directory `~/miniconda3` and includes all the packages listed in `environment.yml`. Should you require additional packages, you can easily incorporate them by adding them to the `environment.yml` file and re-executing the setup job.
+This command installs Miniconda in the directory `~/miniconda3` and includes all the packages listed in `environment.yml` into an environment with the name `nnti`. You can change the name in the `environment.yml` file.
 
-### Step 2: Configuring the System Path
+Should you require additional packages, you can easily incorporate them by adding them to the `environment.yml` file and re-executing the setup job.
+
+### Step 2: Configuring the System Path (Optional)
 To integrate `conda` into your system path, append the following line to your `~/.bashrc` file:
 
 ```bash
@@ -88,3 +116,37 @@ For real-time monitoring of a process that is currently in execution, the follow
 ```bash
 tail -f logs/run.<job_id>.0.out
 ```
+## How to View Files on the Cluster
+
+Since the cluster does not have a graphical user interface (GUI), you need alternative methods to view files, such as plots. You can either transfer these files to your local computer or use an application that provides a GUI through SSH.
+
+### For Linux Users
+If you're using Linux, your file explorer likely supports SFTP. You can access and view all files on the cluster by connecting to `sftp://conduit.cs.uni-saarland.de`. This allows you to browse the cluster's files directly from your file explorer.
+
+### For Windows Users
+On Windows you can e.g. use a file transfer application with SFTP support, such as  [FileZilla](https://filezilla-project.org/) or [WinSCP](https://winscp.net/eng/download.php). These programs offer a graphical interface for transferring files from the cluster to your computer. 
+
+### Using Visual Studio Code
+Regardless of your operating system, you can use Visual Studio Code with the [Remote-SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension. This setup allows you to develop directly on the cluster. It also enables you to view files, including images, as if you were working locally.
+
+### Copying Files Using `scp`
+Another method is to copy the files to your local machine using the `scp` command. This is useful for viewing files on your own computer.
+
+To copy a file from the cluster to your machine, use the following command. Replace `<username>` with your actual username, `/path/to/your/file/on/remote` with the file's path on the cluster, and `/copy/to/here/` with the destination path on your machine.
+
+```bash
+scp <username>@conduit.cs.uni-saarland.de:/path/to/your/file/on/remote /copy/to/here/
+```
+
+If you have previously set up an entry in your `~/.ssh/config` file, the command simplifies to:
+
+```bash
+scp sic_cluster:/path/to/your/file/on/remote /copy/to/here/
+```
+
+This command uses the alias `sic_cluster` that you would have defined in your SSH configuration.
+
+
+### Git
+If you have setup your own repository, you can also add the files to your repository.
+
